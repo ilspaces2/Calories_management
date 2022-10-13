@@ -6,33 +6,38 @@ import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MealMemoryStore {
 
-    private final ArrayList<Meal> list = new ArrayList<>();
+    private final CopyOnWriteArrayList<Meal> list = new CopyOnWriteArrayList<>();
 
     private final AtomicInteger countId = new AtomicInteger(3);
 
     public MealMemoryStore() {
-        list.add(1, new Meal(1, LocalDateTime.now(), "dinner1", 1000));
-        list.add(2, new Meal(2, LocalDateTime.now(), "dinner2", 2000));
-        list.add(3, new Meal(3, LocalDateTime.now(), "dinner3", 3000));
+        list.add(new Meal(1, LocalDateTime.now(), "dinner1", 1000));
+        list.add(new Meal(2, LocalDateTime.now(), "dinner2", 2000));
+        list.add(new Meal(3, LocalDateTime.now(), "dinner3", 3000));
     }
 
     public void add(Meal meal) {
-        list.add(countId.incrementAndGet(), meal);
+        meal.setId(countId.incrementAndGet());
+        list.add(meal);
     }
 
     public void update(int id, Meal meal) {
-        list.add(id, meal);
+        list.set(id - 1, meal);
     }
 
     public void delete(int id) {
-        list.remove(id);
+        countId.decrementAndGet();
+        list.remove(id - 1);
+    }
+
+    public Meal findById(int id) {
+        return list.get(id - 1);
     }
 
     public List<Meal> getAll() {

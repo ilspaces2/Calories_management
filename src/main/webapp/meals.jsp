@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ru">
 <head>
@@ -22,9 +22,24 @@
         <tbody>
         <c:forEach var="meal" items="${meals}">
             <tr>
-                <td>${meal.dateTime}</td>
-                <td>${meal.description}</td>
-                <td>${meal.calories}</td>
+                    <%--                <c:if test="${meal.excess}">--%>
+                    <%--                    <td style="color: red">${meal.dateTime}</td>--%>
+                    <%--                    <td style="color: red">${meal.description}</td>--%>
+                    <%--                    <td style="color: red">${meal.calories}</td>--%>
+                    <%--                </c:if>--%>
+
+                <c:choose>
+                    <c:when test="${meal.excess}">
+                        <td style="color: red">${meal.dateTime}</td>
+                        <td style="color: red">${meal.description}</td>
+                        <td style="color: red">${meal.calories}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td style="color: green">${meal.dateTime}</td>
+                        <td style="color: green">${meal.description}</td>
+                        <td style="color: green">${meal.calories}</td>
+                    </c:otherwise>
+                </c:choose>
                 <td>
                     <a href="<c:url value="?action=update&id=${meal.id}"/>">Update</a>
                 </td>

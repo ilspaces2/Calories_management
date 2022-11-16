@@ -70,7 +70,7 @@
         <!-- Transaction manager for a jdbc -->
         <tx:annotation-driven/>
         <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-              p:dataSource="dataSource"/>
+              p:dataSource-ref="dataSource"/>
     </beans>
 
     <beans profile="jpa,datajpa">

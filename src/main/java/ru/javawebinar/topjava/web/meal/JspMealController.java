@@ -52,6 +52,7 @@ public class JspMealController extends AbstractMealController {
     public String createOrUpdate(@ModelAttribute Meal meal) {
         if (meal.isNew()) {
             super.create(meal);
+            return "redirect:/meals";
         }
         super.update(meal, meal.id());
         return "redirect:/meals";

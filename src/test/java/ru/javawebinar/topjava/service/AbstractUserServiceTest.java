@@ -27,8 +27,11 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Autowired
-    protected JpaUtil jpaUtil;
+    private JpaUtil jpaUtil;
+    @Autowired(required = false)
+    public void setLogger(JpaUtil jpaUtil) {
+        this.jpaUtil = jpaUtil;
+    }
 
     @Before
     public void setup() {

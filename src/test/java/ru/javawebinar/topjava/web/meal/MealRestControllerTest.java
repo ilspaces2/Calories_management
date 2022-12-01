@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.javawebinar.topjava.MealTestData;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
@@ -12,6 +13,8 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -73,8 +76,10 @@ class MealRestControllerTest extends AbstractControllerTest {
     @Test
     void getBetween() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "filter")
-                .param("startDateTime", meal4.getDateTime().toString())
-                .param("endDateTime", meal7.getDateTime().toString()))
+                .param("startDate", meal4.getDateTime().toLocalDate().toString())
+                .param("startTime", meal4.getDateTime().toLocalTime().toString())
+                .param("endDate", meal7.getDateTime().toLocalDate().toString())
+                .param("endTime", meal7.getDateTime().toLocalTime().toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

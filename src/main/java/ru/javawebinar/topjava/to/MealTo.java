@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.to;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 public class MealTo {
     private final Integer id;
 
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm")
     private final LocalDateTime dateTime;
 
     private final String description;

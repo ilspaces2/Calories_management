@@ -10,7 +10,9 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -44,13 +46,11 @@ public class MealRestController extends AbstractMealController {
 
     @GetMapping("/filter")
     public List<MealTo> getBetweenDataTime(
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @RequestParam LocalDateTime startDateTime,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) @RequestParam LocalDateTime endDateTime) {
-        return super.getBetween(
-                startDateTime.toLocalDate(),
-                startDateTime.toLocalTime(),
-                endDateTime.toLocalDate(),
-                endDateTime.toLocalTime());
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalTime startTime,
+            @RequestParam LocalDate endDate,
+            @RequestParam LocalTime endTime) {
+        return super.getBetween(startDate, startTime, endDate, endTime);
     }
 
     @Override

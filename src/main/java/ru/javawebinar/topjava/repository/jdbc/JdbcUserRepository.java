@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
@@ -22,6 +23,8 @@ import java.util.*;
 public class JdbcUserRepository implements UserRepository {
 
     private static final BeanPropertyRowMapper<User> ROW_MAPPER = BeanPropertyRowMapper.newInstance(User.class);
+
+    private static final BeanPropertyRowMapper<Meal> ROW_MAPPER_MEAL = BeanPropertyRowMapper.newInstance(Meal.class);
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -96,6 +99,14 @@ public class JdbcUserRepository implements UserRepository {
         });
         users.forEach(u -> u.setRoles(map.get(u.getId())));
         return users;
+    }
+
+    @Override
+    public User getWithMeals(int id) {
+        User user = jdbcTemplate.queryForObject("SELECT * FROM users  WHERE id=?", ROW_MAPPER, id);
+        List<Meal> meals = jdbcTemplate.query("SELECT * FROM meals  WHERE user_id=?", ROW_MAPPER_MEAL, id);
+        user.setMeals(meals);
+        return setRoles(user);
     }
 
     private void insertRoles(User u) {

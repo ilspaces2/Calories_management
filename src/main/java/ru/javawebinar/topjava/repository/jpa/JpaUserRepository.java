@@ -72,4 +72,10 @@ public class JpaUserRepository implements UserRepository {
         return em.createNamedQuery(User.ALL_SORTED, User.class)
                 .getResultList();
     }
+
+    @Override
+    public User getWithMeals(int id) {
+        return em.createNamedQuery(User.WITH_MEAL, User.class)
+                .setParameter(1, id).getSingleResult();
+    }
 }

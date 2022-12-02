@@ -104,9 +104,12 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     public User getWithMeals(int id) {
         User user = jdbcTemplate.queryForObject("SELECT * FROM users  WHERE id=?", ROW_MAPPER, id);
-        List<Meal> meals = jdbcTemplate.query("SELECT * FROM meals  WHERE user_id=?", ROW_MAPPER_MEAL, id);
-        user.setMeals(meals);
-        return setRoles(user);
+        if (user != null) {
+            List<Meal> meals = jdbcTemplate.query("SELECT * FROM meals  WHERE user_id=? ORDER BY date_time DESC", ROW_MAPPER_MEAL, id);
+            user.setMeals(meals);
+            return setRoles(user);
+        }
+        return new User();
     }
 
     private void insertRoles(User u) {

@@ -50,13 +50,13 @@
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
-    <mvc:annotation-driven conversion-service="conversionService"/>
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="formatters">
-            <set>
-                <bean class="ru.javawebinar.topjava.util.LocalDateFormatter"/>
-                <bean class="ru.javawebinar.topjava.util.LocalTimeFormatter"/>
-            </set>
-        </property>
-    </bean>
+<!--    <mvc:annotation-driven conversion-service="conversionService"/>-->
+<!--    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+<!--        <property name="formatters">-->
+<!--            <set>-->
+<!--                <bean class="ru.javawebinar.topjava.util.LocalDateFormatter"/>-->
+<!--                <bean class="ru.javawebinar.topjava.util.LocalTimeFormatter"/>-->
+<!--            </set>-->
+<!--        </property>-->
+<!--    </bean>-->
 </beans>

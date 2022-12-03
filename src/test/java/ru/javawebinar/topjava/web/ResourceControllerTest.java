@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.web;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -10,11 +11,9 @@ public class ResourceControllerTest extends AbstractControllerTest {
 
     @Test
     void getStyle() throws Exception {
-        perform(get("/resources"))
+        perform(get("/resources/css/style.css"))
                 .andDo(print())
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:resources/css/style.css"))
-                .andExpect(redirectedUrl("resources/css/style.css"))
-                .andExpect(content().contentType("text/css;charset=UTF-8"));
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.valueOf("text/css")));
     }
 }

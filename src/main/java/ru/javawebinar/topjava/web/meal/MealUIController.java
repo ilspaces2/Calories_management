@@ -49,6 +49,7 @@ public class MealUIController extends AbstractMealController {
             @RequestParam @Nullable LocalTime startTime,
             @RequestParam @Nullable LocalDate endDate,
             @RequestParam @Nullable LocalTime endTime) {
+        System.out.println("FILTER");
         return super.getBetween(startDate, startTime, endDate, endTime);
     }
 }

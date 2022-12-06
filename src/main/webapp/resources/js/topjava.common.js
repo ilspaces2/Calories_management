@@ -78,3 +78,12 @@ function failNoty(jqXHR) {
     });
     failedNote.show()
 }
+
+function filter() {
+    $.ajax({
+        type: "GET",
+        url: ctx.filterAjaxUrl,
+        data: $("#filterForm").serialize()
+
+    })
+}

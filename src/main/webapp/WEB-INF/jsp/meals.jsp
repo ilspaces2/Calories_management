@@ -29,11 +29,15 @@
                 <dt><spring:message code="meal.endTime"/>:</dt>
                 <dd><input type="time" name="endTime" value="${param.endTime}"></dd>
             </dl>
-            <button type="submit" class="btn btn-primary" onclick="filter()">
+            <button type="button" class="btn btn-primary" onclick="filter()">
                 <span class="fa fa-filter"></span>
                 <spring:message code="meal.filter"/>
             </button>
         </form>
+        <button type="button" class="btn btn-primary" onclick="cleanFilter()">
+            <span class="fa fa-refresh"></span>
+            <spring:message code="meal.cleanFilter"/>
+        </button>
         <hr>
     </div>
     <div class="container">
@@ -92,7 +96,6 @@
                                 code="meal.description"/></label>
                         <input type="text" class="form-control" id="description" name="description"
                                placeholder="<spring:message code="meal.description"/>" required>
-
                     </div>
 
                     <div class="form-group">

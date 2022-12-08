@@ -46,16 +46,11 @@ $(function () {
     );
 });
 
-function enableUser() {
+function enableUser(id) {
     $.ajax({
         type: 'PUT',
-        url: ctx.ajaxUrl + 100001,
-        contentType: 'application/json',
-        // data: $("#enabled").serialize()
-        data: JSON.stringify(
-            {enabled: false}
-        )
+        url: ctx.ajaxUrl + id,
     }).done(function () {
-        updateTable()
+        updateTable();
     })
 }

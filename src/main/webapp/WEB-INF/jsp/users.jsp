@@ -35,11 +35,8 @@
                     <td><c:out value="${user.name}"/></td>
                     <td><a href="mailto:${user.email}">${user.email}</a></td>
                     <td>${user.roles}</td>
-                    <td><input type="checkbox" name="enabled" id="enabled"
-                               <c:if test="${user.enabled}">checked</c:if>/>
-                        <button type="button" class="btn btn-primary" onclick="enableUser()">
-                            <span class="fa fa-refresh"></span>
-                        </button>
+                    <td><input type="checkbox" disabled="disabled" <c:if test="${user.enabled}">checked</c:if>/>
+                        <a class="setEnabled"><span class="fa fa-refresh"></span></a>
                     </td>
                     <td><fmt:formatDate value="${user.registered}" pattern="dd-MMMM-yyyy"/></td>
                     <td><a><span class="fa fa-pencil"></span></a></td>

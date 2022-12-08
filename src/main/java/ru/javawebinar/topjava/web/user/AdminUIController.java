@@ -34,10 +34,11 @@ public class AdminUIController extends AbstractUserController {
         super.create(new User(null, name, email, password, Role.USER));
     }
 
-    @Override
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody User user, @PathVariable int id) {
+    public void update(@PathVariable int id) {
+        User user = super.get(id);
+        user.setEnabled(!user.isEnabled());
         super.update(user, id);
     }
 }

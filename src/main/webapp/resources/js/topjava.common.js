@@ -9,6 +9,12 @@ function makeEditable(datatableApi) {
         }
     });
 
+    $(".setEnabled").click(function () {
+        if (confirm('Are you sure?')) {
+            enableUser($(this).closest('tr').attr("id"));
+        }
+    });
+
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
         failNoty(jqXHR);
     });

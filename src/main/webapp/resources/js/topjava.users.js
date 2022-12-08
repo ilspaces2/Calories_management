@@ -45,3 +45,17 @@ $(function () {
         })
     );
 });
+
+function enableUser() {
+    $.ajax({
+        type: 'PUT',
+        url: ctx.ajaxUrl + 100001,
+        contentType: 'application/json',
+        // data: $("#enabled").serialize()
+        data: JSON.stringify(
+            {enabled: false}
+        )
+    }).done(function () {
+        updateTable()
+    })
+}

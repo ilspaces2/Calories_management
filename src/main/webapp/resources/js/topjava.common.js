@@ -97,10 +97,3 @@ function failNoty(jqXHR) {
     });
     failedNote.show()
 }
-
-function dataTimePicker() {
-    $("#dateTime").datetimepicker({
-        format: 'Y.m.d H:i',
-        lang: 'ru'
-    });
-}

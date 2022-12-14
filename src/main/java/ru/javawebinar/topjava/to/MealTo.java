@@ -16,23 +16,22 @@ import java.util.Objects;
 public class MealTo extends BaseTo implements Serializable {
 
     @NotNull
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE_TIME, pattern= "yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern ="yyyy-MM-dd'T'HH:mm" )
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private final LocalDateTime dateTime;
 
     @NotBlank
-    @Size(min = 2, max = 120, message = "length must be between 2 and 120 characters")
+    @Size(min = 2, max = 120)
     private final String description;
 
     @NotNull
-    @Range(min = 10, max = 5000, message = "range must be between 10 and 5000")
-    private final int calories;
+    @Range(min = 10, max = 5000)
+    private final Integer calories;
 
-    @Nullable
-    private final boolean excess;
+    private final Boolean excess;
 
     @ConstructorProperties({"id", "dateTime", "description", "calories", "excess"})
-    public MealTo(Integer id, LocalDateTime dateTime, String description, int calories, boolean excess) {
+    public MealTo(Integer id, LocalDateTime dateTime, String description, Integer calories, @Nullable Boolean excess) {
         super(id);
         this.dateTime = dateTime;
         this.description = description;
@@ -52,7 +51,7 @@ public class MealTo extends BaseTo implements Serializable {
         return calories;
     }
 
-    public boolean isExcess() {
+    public Boolean isExcess() {
         return excess;
     }
 

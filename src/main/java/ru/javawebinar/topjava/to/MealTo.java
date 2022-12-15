@@ -17,7 +17,6 @@ public class MealTo extends BaseTo implements Serializable {
 
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd HH:mm")
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private final LocalDateTime dateTime;
 
     @NotBlank

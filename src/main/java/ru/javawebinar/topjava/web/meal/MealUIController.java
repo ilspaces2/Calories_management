@@ -1,5 +1,6 @@
 package ru.javawebinar.topjava.web.meal;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
 import ru.javawebinar.topjava.util.ValidationUtil;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -23,12 +23,14 @@ public class MealUIController extends AbstractMealController {
 
     @Override
     @GetMapping
+    @JsonView(View.JsonUI.class)
     public List<MealTo> getAll() {
         return super.getAll();
     }
 
     @Override
     @GetMapping("/{id}")
+    @JsonView(View.JsonUI.class)
     public Meal get(@PathVariable int id) {
         return super.get(id);
     }
@@ -42,20 +44,21 @@ public class MealUIController extends AbstractMealController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> createOrUpdate(@Validated(View.ValidationUI.class) Meal mealTo, BindingResult result) {
+    public ResponseEntity<String> createOrUpdate(@Validated(View.ValidationUI.class) Meal meal, BindingResult result) {
         if (result.hasErrors()) {
             return ValidationUtil.checkBindingResult(result);
         }
-        if (mealTo.isNew()) {
-            super.create(mealTo);
+        if (meal.isNew()) {
+            super.create(meal);
         } else {
-            super.update(mealTo, mealTo.id());
+            super.update(meal, meal.id());
         }
         return ResponseEntity.ok().build();
     }
 
     @Override
     @GetMapping("/filter")
+    @JsonView(View.JsonUI.class)
     public List<MealTo> getBetween(
             @RequestParam @Nullable LocalDate startDate,
             @RequestParam @Nullable LocalTime startTime,

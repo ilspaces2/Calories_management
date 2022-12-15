@@ -1,9 +1,11 @@
 package ru.javawebinar.topjava.to;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
+import ru.javawebinar.topjava.View;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,7 +18,7 @@ import java.util.Objects;
 public class MealTo extends BaseTo implements Serializable {
 
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME, pattern = "yyyy-MM-dd HH:mm")
+    @JsonView(View.JsonREST.class)
     private final LocalDateTime dateTime;
 
     @NotBlank
@@ -54,6 +56,12 @@ public class MealTo extends BaseTo implements Serializable {
         return excess;
     }
 
+    @JsonGetter
+    @JsonView(View.JsonUI.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime getDateTimeUI() {
+        return dateTime;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

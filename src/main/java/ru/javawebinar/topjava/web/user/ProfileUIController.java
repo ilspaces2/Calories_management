@@ -1,29 +1,30 @@
 package ru.javawebinar.topjava.web.user;
 
-import org.springframework.context.MessageSource;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import ru.javawebinar.topjava.to.UserTo;
-import ru.javawebinar.topjava.web.ExceptionInfoHandler;
+import ru.javawebinar.topjava.util.UserValidator;
 import ru.javawebinar.topjava.web.SecurityUtil;
 
 import javax.validation.Valid;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/profile")
 public class ProfileUIController extends AbstractUserController {
 
-    private final MessageSource messageSource;
+    private final UserValidator userValidator;
 
-    public ProfileUIController(MessageSource messageSource) {
-        this.messageSource = messageSource;
+    public ProfileUIController(UserValidator userValidator) {
+        this.userValidator = userValidator;
+    }
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(userValidator);
     }
 
     @GetMapping
@@ -60,21 +61,5 @@ public class ProfileUIController extends AbstractUserController {
             status.setComplete();
             return "redirect:/login?message=app.registered&username=" + userTo.getEmail();
         }
-    }
-
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    private String dataBaseEmailError(Model model) {
-        String userTo = "userTo";
-        UserTo userObject = SecurityUtil.safeGet() == null ? new UserTo() : SecurityUtil.get().getUserTo();
-        if (userObject.isNew()) {
-            model.addAttribute("register", true);
-        }
-        BindingResult result = new BeanPropertyBindingResult(userObject, userTo);
-        result.rejectValue("email", "error",
-                messageSource.getMessage(ExceptionInfoHandler.EXCEPTION_EMAIL_DUPLICATE,
-                        null, Locale.getDefault()));
-        model.addAttribute(userTo, userObject);
-        model.addAttribute(BindingResult.MODEL_KEY_PREFIX + userTo, result);
-        return "profile";
     }
 }

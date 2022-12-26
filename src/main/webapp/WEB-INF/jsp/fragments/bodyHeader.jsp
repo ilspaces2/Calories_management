@@ -27,4 +27,5 @@
             </form:form>
         </sec:authorize>
     </div>
+    <a href='?locale=en'>En</a> | <a href='?locale=ru'>Ru</a>
 </nav>

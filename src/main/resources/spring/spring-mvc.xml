@@ -70,7 +70,14 @@
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
+
     <mvc:interceptors>
         <bean class="ru.javawebinar.topjava.web.interceptor.ModelInterceptor"/>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"/>  <!-- (1) -->
     </mvc:interceptors>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" p:defaultLocale="en"/>
+
+    <!--    if save in session-->
+    <!--    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/> -->
 </beans>

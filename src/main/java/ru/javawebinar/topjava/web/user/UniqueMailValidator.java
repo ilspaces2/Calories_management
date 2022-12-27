@@ -1,6 +1,5 @@
 package ru.javawebinar.topjava.web.user;
 
-
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
@@ -45,7 +44,8 @@ public class UniqueMailValidator implements org.springframework.validation.Valid
                     // workaround for update with user.id=null in request body
                     // ValidationUtil.assureIdConsistent (id setter) called after this validation
                     String requestURI = request.getRequestURI();
-                    if (requestURI.endsWith("/" + dbId) || (dbId == SecurityUtil.get().getId() && requestURI.contains("/profile"))) return;
+                    if (requestURI.endsWith("/" + dbId) || (dbId == SecurityUtil.get().getId() && requestURI.contains("/profile")))
+                        return;
                 }
                 errors.rejectValue("email", ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL);
             }

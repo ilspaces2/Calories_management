@@ -1,0 +1,8 @@
+.idea
+.git
+.gitignore
+*.iml
+target
+log
+out
+config
